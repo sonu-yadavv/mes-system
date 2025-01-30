@@ -1,20 +1,27 @@
-# Use an official Node.js runtime as the base image
-FROM node:16
+# Use the official Node.js image to build the app
+FROM node:16 AS build-stage
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
+# Set the working directory for the frontend app
+WORKDIR /app
 
-# Copy the package.json and package-lock.json
+# Install dependencies
 COPY package*.json ./
-
-# Install the dependencies
 RUN npm install
 
-# Copy the rest of the application
+# Copy the entire source code
 COPY . .
 
-# Expose the port the app will run on
-EXPOSE 5000
+# Build the Vue.js app for production
+RUN npm run build
 
-# Command to run the application
-CMD ["node", "index.js"]
+# Use Nginx to serve the app
+FROM nginx:alpine
+
+# Copy the built Vue.js app from the build-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+
+# Expose port 80 for the frontend app
+EXPOSE 8080
+
+# Run Nginx as the frontend server
+CMD ["nginx", "-g", "daemon off;"]
