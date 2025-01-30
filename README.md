@@ -23,5 +23,5 @@ This project implements a Manufacturing Execution System (MES) to manage product
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/yourusername/mes-system.git
+   git clone https://github.com/sonu-yadavv/mes-system.git
    cd mes-system
