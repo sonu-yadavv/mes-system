@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # Backend (ExpressJS API)
+  backend:
+    build: .
+    container_name: mes-backend
+    environment:
+      - NODE_ENV=production
+      - PGHOST=db
+      - PGUSER=postgres
+      - PGPASSWORD=aditya
+      - PGDATABASE=mes_db
+      - PGPORT=5432
+    ports:
+      - "5001:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+      - /app/node_modules
+    working_dir: /app
+    command: ["node", "index.js"]
+    restart: on-failure
+
+
+  # Frontend (Vue.js)
+  frontend:
+    build:
+      context: ./frontend
+    container_name: mes-frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    working_dir: /app
+    command: ["npm", "run", "dev"]
+
+
+  # PostgreSQL Database
+  db:
+    image: postgres:16
+    container_name: mes-db
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=aditya
+      - POSTGRES_DB=mes_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+      timeout: 5s
+
+volumes:
+  postgres-data:

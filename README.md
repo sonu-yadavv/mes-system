@@ -1,27 +1,75 @@
-# Manufacturing Execution System (MES) with Docker
+# Manufacturing Execution System (MES) Module
 
 ## Overview
-This project implements a Manufacturing Execution System (MES) to manage production tracking and quality control, built using Vue.js for the frontend and Express.js for the backend. The system integrates with a PostgreSQL database, and the entire application is containerized using Docker.
+
+This project is a **Manufacturing Execution System (MES) module** designed using modern web technologies. It includes a **dashboard, production tracking, and quality control module**, allowing users to monitor and manage key manufacturing processes efficiently.
+
+### Technologies Used:
+- **Frontend**: Vue.js, Tailwind CSS  
+- **Backend**: ExpressJS (NodeJS)  
+- **Database**: PostgreSQL  
+
+---
 
 ## Features
-- **Production Tracking:** Track production status, quantity, and other relevant details. Performs CRUD operation
-- **Quality Control:** Schedule and track quality control inspections, flag defects, and see the flagged lists.
-- **Real-time Updates:** Real-time updates for production data using axios communication.
 
-## Technologies
-- **Frontend:** Vue.js, Tailwind CSS, ChartJs
-- **Backend:** Express.js
-- **Database:** PostgreSQL
-- **Containerization:** Docker, Docker Compose
+### 1. Dashboard
+- **Objective**: Provide an overview of key manufacturing metrics.
+- **Features**:
+  - Displays production status, machine utilization, and product defect rates.
+  - Uses simple charts or graphs for visualization.
+  - Fully responsive and user-friendly.
+
+![Dashboard](./img/dashboard.png)
+
+### 2. Production Tracking
+- **Objective**: Track the production process from raw materials to finished goods.
+- **Features**:
+  - Tracks production flow and scheduling.
+  - Provides real-time updates on production status.
+  - Implements **CRUD (Create, Read, Update, Delete)** operations for production records.
+
+![Production Tracking](./img/productionTracking.png)
+
+### 3. Quality Control
+- **Objective**: Manage quality control inspections.
+- **Features**:
+  - Schedule and track quality control inspections.
+  - Record inspection results and flag defects.
+  - Generate simple reports on quality control metrics.
+
+![Inspection](./img/inspection.png)
+![Inspection List](./img/inspectionList.png)
+
+---
 
 ## Setup Instructions
 
-### Prerequisites
-- Docker and Docker Compose should be installed on your machine. Follow the installation guide on [Docker's official site](https://docs.docker.com/get-docker/).
+### 1. Prerequisites  
+Ensure you have the following installed:  
+- [Node.js](https://nodejs.org/) (v16+ recommended)  
+- [PostgreSQL](https://www.postgresql.org/)  
+- [Docker](https://www.docker.com/) (if containerizing the application)  
 
-### Running the Application
+### 2. Clone the Repository  
+```bash
+git clone https://github.com/sonu-yadavv/mes-system.git
+cd mes-system
+```
+### 3. Install Dependencies
+```bash
+npm install express pg cor
+cd frontend
+npm install
+```
 
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/sonu-yadavv/mes-system.git
-   cd mes-system
+### 3. Run the Application
+```bash
+node index.js
+cd frontend
+npm run serve
+```
+### Build Docker Images
+```bash
+docker-compose up --build
+docker-compose up -d
